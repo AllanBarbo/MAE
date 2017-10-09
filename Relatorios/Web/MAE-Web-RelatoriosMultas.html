@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <!-- Bootstrap -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>Relatórios Multas</title>
+
+    <!-- jQuery (plugins JavaScript do Bootstrap) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <!--Div container -->
+    <div class="container">
+      <h2>Menu de relatórios, multas</h2>
+      <p>Escolha a opção desejada para amostra de multas </p>
+
+      <!--Div para cada um dos elementos do form -->
+      <div class="form-group">
+        <form action="MAE-Web-RelatoriosMultas-Imprime.php" method="post" class="form-inline">
+           <button type="submit" class="btn btn-default">Mostra relatório</button>
+        </form>
+      </div>
+      <div class="form-group">
+        <form action="MAE-Web-RelatoriosMultas-Download.php" method="post">
+           <button type="submit" class="btn btn-default">Download relatório</button>
+        </form>
+      </div>
+
+    </div>
+  </body>
+</html>

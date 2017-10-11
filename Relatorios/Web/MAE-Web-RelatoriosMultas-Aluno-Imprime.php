@@ -1,22 +1,37 @@
 <?php
+
   /*
   Grupo:​ ​ MAE
 	Data​ ​ de​ ​ modificação:​ ​ 09/10/2017
 	Autor:​ ​ Allan Barbosa
-​ ​ ​ ​ ​ ​ ​ ​ ​Objetivo​ ​ da​ ​ modificação:​ ​Relatórios
+​ ​ ​ ​ ​ ​ ​ ​ ​Objetivo​ ​ da​ ​ modificação:​ Criação do script da impressão via tela dos relatórios de multas
+
+        Comentário do desenvolvedor: Desculpe pela "gambiarra" usando vários echos, não sei fazer de outra forma ;-;
   */
 
-// Create conecção
+//recebe via POST o Id do aluno a ser pesquisado
+if (isset($_POST["idAlunoPesquisa"])) {
+  $idAlunoPesquisa=$_POST["idAlunoPesquisa"];
+}
+else {
+  $idAlunoPesquisa="";
+}
+
+// Cria conexão
 $conn = new mysqli("localhost", "root", "","educatio");
 
-// Checa conecção
+
+// Checa conexão
 if ($conn->connect_error) {
     die("Conecção falhou: " . $conn->connect_error);
 }
 
-//Seleciona o ID do aluno com a sua multa correspondente
-$sql = "SELECT idAluno, multa FROM emprestimos";
+//Seleciona do BD o ID do aluno com as suas multas correspondentes
+$sql = "SELECT idAluno, multa FROM emprestimos ORDER BY multa ASC";
 $result = $conn->query($sql);
+if(!$result){
+      die("Selecionar o Banco de Dados falhou.");
+    }
 
 //Seta as opções do Bootstrap no html
 echo "<!DOCTYPE html>
@@ -39,21 +54,19 @@ echo "<!DOCTYPE html>
             </body>
           </html>";
 
-//Cria o começo da tabela com ID e multa como colunas
- echo " <div class='container'>
-         <table class='table table-hover'>
+ echo " <!-- Cria o começo da tabela com ID e Multa como colunas -->
+        <div class='container'>
+         <table class='table'>
           <tr>
-           <th>Id do aluno</th>
-           <th>Multa</th>
+           <th>Multas</th>
           </tr>";
+
   while($row = $result->fetch_assoc()) {
-      //echo dos valores do id do Aluno e multas
-      echo " <tr>
-              <td>".$row["idAluno"]."</td>
-              <td>".$row["multa"]."</td>
-             </tr>
-           ";
+    echo " <tr>
+            <td>".$row["multa"]."</td>
+           </tr>";
   }
+
   //Final da tabela
   echo "  </table>
         </div>";

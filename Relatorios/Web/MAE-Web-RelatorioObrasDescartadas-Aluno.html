@@ -17,11 +17,15 @@
 	<div class="container-fluid">
 		<h1>Relatorios:<small><em>Obras Descartadas</em></small></h1> 		
 		<div class="form-group">
-			<form action="MAE-Web-RelatorioObrasDescartadas.php"  class="form-inline" method="post">
+			<form action="MAE-Web-RelatorioObrasDescartadas-Aluno.php"  class="form-inline" method="post">
 				<p>Coloque o nome da obra e clique em mostrar na tela ou em download:</p>
 				<input type="text" class="form-control" name="idAcervo"/>
-				<input type="submit" name="mostrarNaTela" class="btn btn-default" value="Mostrar na tela"/>
-				<input type="submit" name="download" class="btn btn-default" value="Download"/>
+				<button type="submit" name="mostrarNaTela" class="btn btn-default">
+	              	<span class="glyphicon glyphicon-arrow-right"></span>  Mostrar relatório
+	            </button>
+	            <button type="submit" name="download" class="btn btn-default">
+	               	<span class="glyphicon glyphicon-download-alt"></span>  Download .txt
+	            </button>
 			</form>
 		</div>
 		

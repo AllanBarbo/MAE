@@ -1,13 +1,25 @@
 <?php
 
-/*
-Grupo:​ ​ MAE
-Data​ ​ de​ ​ modificação:​ ​ 09/10/2017
-Autor:​ ​ Allan Barbosa
+  /*
+  Grupo:​ ​ MAE
+	Data​ ​ de​ ​ modificação:​ ​ 09/10/2017
+	Autor:​ ​ Allan Barbosa
 ​ ​ ​ ​ ​ ​ ​ ​ ​Objetivo​ ​ da​ ​ modificação:​ Criação do script da geração do arquivo para download dos relatórios de multas
 
-      Comentário do desenvolvedor: Desculpe pela "gambiarra" usando vários echos, não sei fazer de outra forma ;-;
-*/
+        Comentário do desenvolvedor: Desculpe pela "gambiarra" usando vários echos, não sei fazer de outra forma ;-;
+  */
+
+//recebe via POST o Id do aluno a ser pesquisado,se não tiver nada no input ele retorna para a página HTML
+if (isset($_POST["idAlunoPesquisa"])) {
+  $idAlunoPesquisa=$_POST["idAlunoPesquisa"];
+}
+else {
+  $url="http://localhost/MAE-Web-RelatoriosMultas-Aluno.html";
+  echo '<script>window.location = "'.$url.'";</script>';
+}
+
+    $dataAtual = date("d-m-y"); //cria a Data da geração do arquivo
+    $nomeDoArquivo = "Relatorio de multas (" .$dataAtual. ").txt"; //cria nome do arquivo de acordo com a data atual
 
     header("Content-Type: application/save");
     header("Content-Length:".filesize($nomeDoArquivo));
@@ -18,26 +30,23 @@ Autor:​ ​ Allan Barbosa
     if(!$link)
         die("Conex�o falhou.");
 
-    $sql = "SELECT idAluno, multa FROM emprestimos ORDER BY idAluno ASC ";
+    $sql = "SELECT idAluno, multa FROM emprestimos WHERE idAluno = $idAlunoPesquisa ";
     $resultado = $link->query($sql);
 
 
     while($row = $resultado->fetch_assoc()){
-        $conteudoDoArquivo =  "\r\nO id do aluno: ".$row['idAluno'].
-        						          "\r\nA multa: ".$row['multa'];
+        $conteudoDoArquivo =  "\r\nA multa: ".$row['multa'];
     }
 
-    $dataAtual = date("d-m-y"); //cria a Data da geração do arquivo
-    $nomeDoArquivo = "Relatorio de multas (" .$dataAtual. ").txt"; //cria nome do arquivo de acordo com a data atual
 
     $dir = dirname(__FILE__)."";//diretorio do arquivo
-    $arquivoLocal = $dir.$aquivoNome; // caminho absoluto
+    $arquivoLocal = $dir.$nomeDoArquivo; // caminho absolutoS
 
-    $arquivo = fopen($nomeDoArquivo, 'a');
+    $arquivo = fopen($nomeDoArquivo, "w");
     fwrite($arquivo, $conteudoDoArquivo);
     fclose($arquivo);
 
-    // Configuração dos headers que serão enviados para o browser
+    // Configuração os headers que serão enviados para o browser
     header('Content-Description: File Transfer');
     header('Content-Disposition: attachment; filename="'.$nomeDoArquivo.'"');
     header('Content-Type: application/octet-stream');

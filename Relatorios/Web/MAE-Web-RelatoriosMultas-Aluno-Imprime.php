@@ -9,12 +9,13 @@
         Comentário do desenvolvedor: Desculpe pela "gambiarra" usando vários echos, não sei fazer de outra forma ;-;
   */
 
-//recebe via POST o Id do aluno a ser pesquisado
-if (isset($_POST["idAlunoPesquisa"])) {
+//recebe via POST o Id do aluno a ser pesquisado,se não tiver nada no input ele retorna para a página HTML
+if (!empty($_POST["idAlunoPesquisa"])) {
   $idAlunoPesquisa=$_POST["idAlunoPesquisa"];
 }
 else {
-  $idAlunoPesquisa="";
+  $url="http://localhost/MAE-Web-RelatoriosMultas-Aluno.html";
+  echo '<script>window.location = "'.$url.'";</script>';
 }
 
 // Cria conexão
@@ -27,11 +28,8 @@ if ($conn->connect_error) {
 }
 
 //Seleciona do BD o ID do aluno com as suas multas correspondentes
-$sql = "SELECT idAluno, multa FROM emprestimos ORDER BY multa ASC";
+$sql = "SELECT idAluno, multa FROM emprestimos WHERE idAluno = $idAlunoPesquisa ";
 $result = $conn->query($sql);
-if(!$result){
-      die("Selecionar o Banco de Dados falhou.");
-    }
 
 //Seta as opções do Bootstrap no html
 echo "<!DOCTYPE html>
@@ -57,6 +55,7 @@ echo "<!DOCTYPE html>
  echo " <!-- Cria o começo da tabela com ID e Multa como colunas -->
         <div class='container'>
          <table class='table'>
+         <caption><center><strong> Suas multas atrasadas </strong></center></caption>
           <tr>
            <th>Multas</th>
           </tr>";

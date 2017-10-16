@@ -54,10 +54,11 @@ echo "<!DOCTYPE html>
                </button>
              </div>
           </div>
-        </form>
+        </form><br>
 
          <!-- Cria o começo da tabela com ID e Multa como colunas -->
          <table class='table'>
+          <caption><center><strong> Tabela de multas atrasadas </strong></center></caption>
           <tr>
            <th>Id do aluno</th>
            <th>Multas</th>
@@ -75,7 +76,7 @@ echo "<!DOCTYPE html>
 
       if (($row["idAluno"] == $StringPesquisa) && ( $StringPesquisa!="")){
         //echo dos valores do id do Aluno e multas mostrados em verde de acordo com a pesquisa
-        echo " <tr class='warning'>
+        echo " <tr class='warning' id='linhaAmarela' href='#linhaAmarela'>
                 <td>".$row["idAluno"]."</td>
                 <td>".$row["multa"]."</td>
                </tr>

@@ -48,13 +48,13 @@ public class BancoDeDados<E> {
     
     public void apagaTurma(int id) throws SQLException{
         Statement comando = link.createStatement();
-        String query = "DELETE FROM `turmas` WHERE `turmas`.`id` = " + id;
+        String query = "UPDATE `turmas` SET `ativo` = 'N' WHERE `turmas`.`id` = " + id;
         comando.executeUpdate(query);
     }
     
     public void alteraTurma(String item, E valorItemNovo, E valorItemAntigo) throws SQLException{
         Statement comando = link.createStatement();
-        String query = "UPDATE `turmas` SET `" + item + "` = '" + valorItemNovo + "' `" + item + "` = " + valorItemAntigo;
+        String query = "UPDATE `turmas` SET `" + item + "` = '" + valorItemNovo + "' WHERE `" + item + "` = " + valorItemAntigo;
         comando.executeUpdate(query);
     }
 }

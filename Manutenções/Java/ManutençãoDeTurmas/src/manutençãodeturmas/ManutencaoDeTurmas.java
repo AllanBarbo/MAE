@@ -5,6 +5,7 @@
  */
 package manutençãodeturmas;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -42,18 +43,35 @@ public class ManutencaoDeTurmas {
                 
                 bancoDeDados.apagaTurma(id);
                 break;
+                
             case 3:
-                System.out.println("Digite 1 para alterar o id, 2 para o id do curso, 3 para o nome e 4 para a ativação da turma: ");
-                switch(leitor.nextInt()){
-                    case 1:
-                        
-                        bancoDeDados.alteraTurma("id", leitor, leitor);
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
+                
+                System.out.println("Digite o nome da turma turma: ");
+                nome = leitor.next();
+                ResultSet resultado = bancoDeDados.selecionarRegistros("turmas", "nome", nome);
+                resultado.first();
+                if("S".equals(resultado.getString("ativo"))){
+                    System.out.println("Digite 1 para alterar o id, 2 para o id do curso e 3 para o nome da turma: ");
+                    switch(leitor.nextInt()){
+                        case 1:
+                            System.out.println("Digite o novo valor: ");
+                            bancoDeDados.alteraTurma("id", leitor.nextInt(), resultado.getString("id"));
+                            break;
+                        case 2:
+                            System.out.println("Digite o novo valor: ");
+                            bancoDeDados.alteraTurma("idCurso", leitor.nextInt(), resultado.getString("idCurso"));
+                            break;
+                        case 3:
+                            System.out.println("Digite o novo valor: ");
+                            bancoDeDados.alteraTurma("nome", leitor.next(), resultado.getString("nome"));
+                            break;
+                        default:
+                            System.out.println("Valor invalido.");
+                    }
                 }
+                else
+                    System.out.println("A turma ja foi apagada.");
+                
                 break;
             default:
                 System.out.println("Valor invalido.");

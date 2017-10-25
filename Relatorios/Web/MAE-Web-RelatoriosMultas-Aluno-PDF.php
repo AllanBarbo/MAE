@@ -10,7 +10,7 @@
   */
 
 //Inclui a biblioteca do MPDF
-include("C:/xampp/htdocs/matheus/mpdf60/mpdf.php");
+include("C:/wamp64/www/mpdf60/mpdf.php");
 
 // Cria conexão
 $conn = new mysqli("localhost", "root", "","educatio");

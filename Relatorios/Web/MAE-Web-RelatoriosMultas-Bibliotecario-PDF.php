@@ -1,5 +1,5 @@
 <?php
-  
+
   /*
   Grupo:​ ​ MAE
     Data​ ​ de​ ​ modificação:​ ​ 09/10/2017
@@ -9,18 +9,29 @@
         Comentário do desenvolvedor: Desculpe pela "gambiarra" usando vários echos, não sei fazer de outra forma ;-;
   */
 
-// Cria conexão
-include("mpdf60/mpdf.php");
-$conn = new mysqli("localhost", "root", "","educatio");
+//Inclui a biblioteca do MPDF
+include("C:/wamp64/www/mpdf60/mpdf.php");
 
+// Cria conexão
+$conn = new mysqli("localhost", "root", "","educatio");
 // Checa conexão
 if ($conn->connect_error) {
     die("Conecção falhou: " . $conn->connect_error);
 }
 
-//Seleciona o ID do aluno com a sua multa correspondente
-$sql = "SELECT idAluno, multa FROM emprestimos ORDER BY idAluno ASC";
-$result = $conn->query($sql);
+//recebe via POST o Id do aluno a ser pesquisado,se não tiver nada no input ele manda o pdf com TODAS as multas
+if (!empty($_POST["idAlunoPesquisa"])) {
+  $idAlunoPesquisa=$_POST["idAlunoPesquisa"];
+
+  //Seleciona do BD o ID do aluno com as suas multas correspondentes
+  $sql = "SELECT idAluno, multa FROM emprestimos WHERE idAluno = $idAlunoPesquisa ";
+  $result = $conn->query($sql);
+}
+else {
+  //Seleciona da tabela emprestimos todas as multas
+  $sql = "SELECT idAluno, multa FROM emprestimos ORDER BY idAluno ASC";
+  $result = $conn->query($sql);
+}
 
 //Seta as opções do Bootstrap no html e o código para gerar a tabela que seleciona o ID do aluno e suas multas
 $html = "<!DOCTYPE html>
@@ -56,17 +67,18 @@ $html = "<!DOCTYPE html>
                                    </tr>
                                  ";
                           }
-
-                      }
-
 $html.= "         </table>
                 </div>
             </body>
         </html>";
 
- $mpdf=new mPDF(); 
- $mpdf->SetDisplayMode('fullpage');
- $mpdf->WriteHTML($html);
- $mpdf->Output();
+$dataAtual = date("d-m-y"); //cria a Data da geração do arquivo
+$nomeDoArquivo = "Relatorio de multas (" .$dataAtual. ").pdf"; //cria nome do arquivo de acordo com a data atual
+
+ $mpdf = new mPDF();
+ $mpdf -> SetTitle($nomeDoArquivo);
+ $mpdf -> SetDisplayMode('fullpage');
+ $mpdf -> WriteHTML($html);
+ $mpdf -> Output($nomeDoArquivo, 'D');
 
 ?>

@@ -36,25 +36,54 @@
                     die("Conecção falhou: " . $conn->connect_error);
                 }
 
-                //Seleciona do BD o ID da turma com as suas multas correspondentes
-                $sql = "SELECT * FROM turmas WHERE id = $id ";
-                $resultadoSELECT = $conn->query($sql);
+                $sql = "SELECT IdTurma FROM disciplinas WHERE idTurma = $id ";
+                $resultadoDisciplinas = $conn->query($sql);
 
-                while($row = $resultadoSELECT->fetch_assoc()) {
-                      //echo dos valores do id do Aluno e multas
-                  echo " <table class='table table-bordered'>
-                              <caption>Turma deletada</caption>
-                              <tr>
-                                <td>
-                                  <b>ID do  Curso</b>: ".$row["idCurso"]." <br>
-                                  <b>Nome da turma</b>: ".$row["nome"]." <br>
-                                </td>
-                              </tr>
-                            </table>
-                           ";
-                    }
-                    $sql = "UPDATE `turmas` SET `ativo` = 'N',  WHERE `id` = $id";
-                    $resultadoUPDATE = $conn->query($sql);
+                if ($resultadoDisciplinas->num_rows!=0){
+                  $sql = "SELECT * FROM turmas WHERE id = $id ";
+                  $resultadoTurma = $conn->query($sql);
+
+                  while($row = $resultadoTurma->fetch_assoc()) {
+                        //echo dos valores do id do Aluno e multas
+                    echo " <table class='table table-bordered'>
+                                <caption>Turma deletada</caption>
+                                <tr>
+                                  <td>
+                                    <b>ID do  Curso</b>: ".$row["idCurso"]." <br>
+                                    <b>Nome da turma</b>: ".$row["nome"]." <br>
+                                  </td>
+                                </tr>
+                              </table>
+                             ";
+                      }
+
+                  echo "<script>alert('Existe disciplinas atreladas a turma')</script>";
+                  echo "<script>window.location.href = 'http://localhost/MAE/ManutencaoTurmas/MAE-Web-ManutencaoTurmas.html';</script>";
+                }
+
+                else{
+                  $sql = "SELECT * FROM turmas WHERE id = $id ";
+                  $resultadoTurma = $conn->query($sql);
+
+                  while($row = $resultadoTurma->fetch_assoc()) {
+                        //echo dos valores do id do Aluno e multas
+                    echo " <table class='table table-bordered'>
+                                <caption>Turma deletada</caption>
+                                <tr>
+                                  <td>
+                                    <b>ID do  Curso</b>: ".$row["idCurso"]." <br>
+                                    <b>Nome da turma</b>: ".$row["nome"]." <br>
+                                  </td>
+                                </tr>
+                              </table>
+                             ";
+                      }
+                      $sql = "UPDATE `turmas` SET `ativo` = 'N' WHERE `id` = $id";
+                      $resultadoUPDATE = $conn->query($sql);
+
+                      echo "<script>alert('Turma excluida com sucesso!')</script>";
+                      echo "<script>window.location.href = 'http://localhost/MAE/ManutencaoTurmas/MAE-Web-ManutencaoTurmas.html';</script>";
+                }
               }
           ?>
 

@@ -2,6 +2,8 @@
 
 
 //Seta as strings de acordo com seus respectivos inputs
+$StringNovoIdCurso = $_POST["NovoIdCurso"];
+$StringNovoNomeTurma = $_POST["NovoNome"];
 $StringIdCurso = $_POST["idCurso"];
 $StringNomeTurma = $_POST["nome"];
 
@@ -11,6 +13,7 @@ $conn = new mysqli("localhost", "root", "","educatio");
 if ($conn->connect_error) {
     die("Conecção falhou: " . $conn->connect_error);
 }
+
 
 //Verifica se as preposiões dos case são iguais a true
 switch (true) {
@@ -29,7 +32,7 @@ switch (true) {
 
           while($linha = $resultadoSELECT->fetch_array() ) {
             //atualiza na tabela as variaveis do input
-            $sqlUPDATE = "UPDATE `turmas` SET `idCurso` = '$StringIdCurso', `nome` = '$StringNomeTurma' WHERE `id` = ". $linha["id"];
+            $sqlUPDATE = "UPDATE `turmas` SET `idCurso` = '$StringNovoIdCurso', `nome` = '$StringNovoNomeTurma' WHERE `id` = ". $linha["id"];
             $resultadoUPDATE = $conn->query($sqlUPDATE);
 
             //Verifica se o Departamento foi criado com sucesso e redireciona para o menu inical
@@ -52,7 +55,7 @@ switch (true) {
 
           while($linha = $resultadoSELECT->fetch_array() ) {
             //atualiza na tabela as variaveis do input
-            $sqlUPDATE = "UPDATE `turmas` SET `idCurso` = '$StringIdCurso' WHERE `id` = ". $linha["id"];
+            $sqlUPDATE = "UPDATE `turmas` SET `idCurso` = '$StringNovoIdCurso' WHERE `id` = ". $linha["id"];
             $resultadoUPDATE = $conn->query($sqlUPDATE);
 
             //Verifica se o Departamento foi criado com sucesso e redireciona para o menu inical
@@ -75,7 +78,7 @@ switch (true) {
 
           while($linha = $resultadoSELECT->fetch_array() ) {
             //atualiza na tabela as variaveis do input
-            $sqlUPDATE = "UPDATE `turmas` SET `nome` = '$StringNomeTurma' WHERE `id` = ". $linha["id"];
+            $sqlUPDATE = "UPDATE `turmas` SET `nome` = '$StringNovoNomeTurma' WHERE `id` = ". $linha["id"];
             $resultadoUPDATE = $conn->query($sqlUPDATE);
 
             //Verifica se o Departamento foi criado com sucesso e redireciona para o menu inical
@@ -91,7 +94,6 @@ switch (true) {
           }
         break;
 }
-
 
 
 ?>

@@ -40,14 +40,21 @@
                 $sql = "SELECT * FROM turmas WHERE id = $id ";
                 $result = $conn->query($sql);
 
-                while($row = $result->fetch_assoc()) {
+
+
+                while($linha = $result->fetch_assoc()) {
+                  session_start();
+
+                  $_SESSION['nome'] = $linha["nome"];
+                  $_SESSION['idCurso'] = $linha["idCurso"];
+
                       //echo dos valores do id do Aluno e multas
                   echo " <table class='table table-bordered'>
                               <caption>Turma escolhida</caption>
                               <tr>
                                 <td>
-                                  <b>ID do  Curso</b>: ".$row["idCurso"]." <br>
-                                  <b>Nome da turma</b>: ".$row["nome"]." <br>
+                                  <b>ID do  Curso</b>: ".$linha["idCurso"]." <br>
+                                  <b>Nome da turma</b>: ".$linha["nome"]." <br>
                                 </td>
                               </tr>
                             </table>
@@ -64,13 +71,17 @@
 
             <div class='form-group'>
              <label for='idCurso'>Novo ID do Curso:</label>
-             <input type='text' class='form-control' name='idCurso' placeholder="ID do curso inalterado" >
+             <input type='text' class='form-control' name='NovoIdCurso' value= "<?php  echo $_SESSION['idCurso']; ?>" >
             </div>
 
             <div class='form-group'>
              <label for='nome'>Novo nome da Turma:</label>
-             <input type='text' class='form-control' name='nome' placeholder="Nome inalterado">
+             <input type='text' class='form-control' name='NovoNome' value="<?php  echo $_SESSION['nome']; ?>">
             </div>
+
+            <!--Passa o nome e antigo do Curso-->
+            <input type='hidden' name='idCurso' value='<?php  echo $_SESSION['idCurso']; ?>'/>
+            <input type='hidden' name='nome' value='<?php  echo $_SESSION['nome']; ?>'/>
 
             <div class='form-group'>
               <button type='submit' class='btn btn-outline-primary'>

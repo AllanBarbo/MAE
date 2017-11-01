@@ -9,7 +9,7 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
 
-    <title>Manutenção Multas</title>
+    <title>Manutenção de turmas</title>
 
     <!-- jQuery (plugins JavaScript do Bootstrap) -->
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
@@ -18,7 +18,7 @@
   <body>
     <!--Div container -->
     <div class='container'>
-        <h2><center>Manutenção de multas</center></h2><br>
+        <h2><center>Manutenção de turmas</center></h2><br>
         <center><div class='.col-xs-9'>
           <?php
               // Verifica se usuário escolheu algum nome
@@ -40,14 +40,21 @@
                 $sql = "SELECT * FROM turmas WHERE id = $id ";
                 $result = $conn->query($sql);
 
-                while($row = $result->fetch_assoc()) {
+
+
+                while($linha = $result->fetch_assoc()) {
+                  session_start();
+
+                  $_SESSION['nome'] = $linha["nome"];
+                  $_SESSION['idCurso'] = $linha["idCurso"];
+
                       //echo dos valores do id do Aluno e multas
                   echo " <table class='table table-bordered'>
                               <caption>Turma escolhida</caption>
                               <tr>
                                 <td>
-                                  <b>ID Curso</b>: ".$row["idCurso"]." <br>
-                                  <b>Nome da turma</b>: ".$row["nome"]." <br>
+                                  <b>ID do  Curso</b>: ".$linha["idCurso"]." <br>
+                                  <b>Nome da turma</b>: ".$linha["nome"]." <br>
                                 </td>
                               </tr>
                             </table>
@@ -63,14 +70,18 @@
           <form action='MAE-Web-ManutencaoTurmas-Editar-BD.php' method='post' >
 
             <div class='form-group'>
-             <label for='idCurso'>ID do Curso:</label>
-             <input type='text' class='form-control' name='idCurso' >
+             <label for='idCurso'>Novo ID do Curso:</label>
+             <input type='text' class='form-control' name='NovoIdCurso' value= "<?php  echo $_SESSION['idCurso']; ?>" >
             </div>
 
             <div class='form-group'>
-             <label for='nome'>Nome da Turma:</label>
-             <input type='text' class='form-control' name='nome' >
+             <label for='nome'>Novo nome da Turma:</label>
+             <input type='text' class='form-control' name='NovoNome' value="<?php  echo $_SESSION['nome']; ?>">
             </div>
+
+            <!--Passa o nome e antigo do Curso-->
+            <input type='hidden' name='idCurso' value='<?php  echo $_SESSION['idCurso']; ?>'/>
+            <input type='hidden' name='nome' value='<?php  echo $_SESSION['nome']; ?>'/>
 
             <div class='form-group'>
               <button type='submit' class='btn btn-outline-primary'>

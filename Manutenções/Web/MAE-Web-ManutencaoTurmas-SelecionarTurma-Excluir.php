@@ -3,7 +3,7 @@
 Grupo:​ ​ MAE
 Data​ ​ de​ ​ modificação:​ ​ 09/10/2017
 Autor:​ ​ Allan Barbosa
-​ ​ ​ ​ ​ ​ ​ ​ ​Objetivo​ ​ da​ ​ modificação:​ Criação do script da manutenção de multas,parte de criação
+​ ​ ​ ​ ​ ​ ​ ​ ​Objetivo​ ​ da​ ​ modificação:​ Criação do script da manutenção de multas,parte de edição
 -->
 
 <!DOCTYPE html>
@@ -25,28 +25,34 @@ Autor:​ ​ Allan Barbosa
   <body>
     <!--Div container -->
     <div class="container">
-        <h2><center>Manutenção de turmas</center></h2><br>
-        <p>Caro(a) (Nome do biliotecário logado), Preencha os campos para a criação de turmas </p>
+        <h2><center>Manutenção de Turmas</center></h2><br>
+        <p>Caro(a) (Nome do biliotecário logado), Selecione a turma para exclusão </p>
 
-        <!--Form para criação da turma -->
-          <form action="MAE-Web-ManutencaoTurmas-Criar-BD.php" method="post" >
-
-            <div class="form-group">
-             <label for="idCurso">ID do Curso:</label>
-             <input type="text" class="form-control" name="idCurso" required idCurso=idCurso>
-           </div>
+        <!--select com os nomes das turma -->
+          <form action="MAE-Web-ManutencaoTurmas-Excluir.php" method="post" >
 
             <div class="form-group">
-             <label for="nome">Nome da Turma:</label>
-             <input type="text" class="form-control" name="nome" required nome=nome>
+              <label for="select">Selecione uma turma para excluir:</label>
+              <?php
+                $conn = new mysqli("localhost", "root", "","educatio");
+                $query = $conn->query(" SELECT * FROM `turmas` WHERE ativo='S' ORDER BY idCurso ASC,nome ASC");
+
+                //Cria o select dinamico pelo BD
+                echo " <select class='form-control' id='select' name='select[]'> ";
+                while($linha = $query->fetch_array() ) {
+                  echo " <option value = '".$linha["id"]."'> ".$linha["nome"]." - ID do curso: ".$linha["idCurso"]."</option> ";
+                }
+                echo "</select>";
+              ?>
             </div>
 
             <div class="form-group">
-              <button type="submit" class="btn btn-outline-primary">
+              <button type="submit" class="btn btn-default">
                 <span class="glyphicon glyphicon-arrow-right"></span>  Enviar
               </button>
             </div>
           </form>
+
       </div>
   </body>
 </html>

@@ -61,6 +61,15 @@ public class ManutencaoDeTurmas extends Application {
         controller.setMain(this);
     }
     
+    public void AlterarTurmasMudarDados() throws IOException{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ManutencaoDeTurmas.class.getResource("view/AlterarTurmasMudarDados.fxml"));
+        AnchorPane tela = (AnchorPane) loader.load();
+        borda.setCenter(tela);
+        AlterarTurmasController controller = loader.getController();
+        controller.setMain(this);
+    }
+    
     public void abreApagaTurma() throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(ManutencaoDeTurmas.class.getResource("view/ApagarTurmas.fxml"));
@@ -90,4 +99,5 @@ public class ManutencaoDeTurmas extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    
 }

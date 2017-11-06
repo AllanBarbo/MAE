@@ -51,6 +51,7 @@
                                   <td>
                                     <b>ID do  Curso</b>: ".$row["idCurso"]." <br>
                                     <b>Nome da turma</b>: ".$row["nome"]." <br>
+                                    <b>Série</b>: ".$row["serie"]." <br>
                                   </td>
                                 </tr>
                               </table>
@@ -73,6 +74,7 @@
                                   <td>
                                     <b>ID do  Curso</b>: ".$row["idCurso"]." <br>
                                     <b>Nome da turma</b>: ".$row["nome"]." <br>
+                                    <b>Série</b>: ".$row["serie"]." <br>
                                   </td>
                                 </tr>
                               </table>

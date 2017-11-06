@@ -42,6 +42,11 @@ Autor:​ ​ Allan Barbosa
             </div>
 
             <div class="form-group">
+             <label for="nome">Série:</label>
+             <input type="text" class="form-control" name="serie" required serie=serie>
+            </div>
+
+            <div class="form-group">
               <button type="submit" class="btn btn-outline-primary">
                 <span class="glyphicon glyphicon-arrow-right"></span>  Enviar
               </button>

@@ -35,12 +35,12 @@ Autor:​ ​ Allan Barbosa
               <label for="select">Selecione uma turma para editar:</label>
               <?php
                 $conn = new mysqli("localhost", "root", "","educatio");
-                $query = $conn->query(" SELECT * FROM `turmas` WHERE ativo='S' ORDER BY idCurso ASC,nome ASC");
+                $query = $conn->query(" SELECT * FROM `turmas` WHERE ativo='S' ORDER BY idCurso ASC, serie ASC, nome ASC");
 
                 //Cria o select dinamico pelo BD
                 echo " <select class='form-control' id='select' name='select[]'> ";
                 while($linha = $query->fetch_array() ) {
-                  echo " <option value = '".$linha["id"]."'> ".$linha["nome"]." - ID do curso: ".$linha["idCurso"]."</option> ";
+                  echo " <option value = '".$linha["id"]."'> ".$linha["nome"]." ".$linha["serie"]."° ano - ID do curso: ".$linha["idCurso"]."</option> ";
                 }
                 echo "</select>";
               ?>

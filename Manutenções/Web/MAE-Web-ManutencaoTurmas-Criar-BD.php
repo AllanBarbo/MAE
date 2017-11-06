@@ -12,7 +12,7 @@
 //$StringIdTurma = $_POST["idTurma"];
 $StringIdCurso = $_POST["idCurso"];
 $StringNomeTurma = $_POST["nome"];
-
+$StringSerie = $_POST["serie"];
 
 // Cria conexão
 $conn = new mysqli("localhost", "root", "","educatio");
@@ -22,8 +22,8 @@ if ($conn->connect_error) {
 }
 
 //insere na tabela as variaveis do input
-$sql = "INSERT  INTO `turmas` (`idCurso`, `nome`, `ativo`)
-        VALUES ('$StringIdCurso', '$StringNomeTurma', 'S')";
+$sql = "INSERT  INTO `turmas` (`idCurso`,`serie`,`nome`, `ativo`)
+        VALUES ('$StringIdCurso', '$StringSerie', '$StringNomeTurma', 'S')";
 
 //Verifica se o Departamento foi criado com sucesso e redireciona para o menu inical
 if ($conn->query($sql) === TRUE) {

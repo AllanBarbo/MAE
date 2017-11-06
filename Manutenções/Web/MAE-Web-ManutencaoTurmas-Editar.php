@@ -47,6 +47,7 @@
 
                   $_SESSION['nome'] = $linha["nome"];
                   $_SESSION['idCurso'] = $linha["idCurso"];
+                  $_SESSION['serie'] = $linha["serie"];
 
                       //echo dos valores do id do Aluno e multas
                   echo " <table class='table table-bordered'>
@@ -55,6 +56,7 @@
                                 <td>
                                   <b>ID do  Curso</b>: ".$linha["idCurso"]." <br>
                                   <b>Nome da turma</b>: ".$linha["nome"]." <br>
+                                  <b>Série</b>: ".$linha["serie"]." <br>
                                 </td>
                               </tr>
                             </table>
@@ -79,9 +81,15 @@
              <input type='text' class='form-control' name='NovoNome' value="<?php  echo $_SESSION['nome']; ?>">
             </div>
 
+            <div class='form-group'>
+             <label for='nome'>Nova Série:</label>
+             <input type='text' class='form-control' name='NovaSerie' value="<?php  echo $_SESSION['serie']; ?>">
+            </div>
+
             <!--Passa o nome e antigo do Curso-->
             <input type='hidden' name='idCurso' value='<?php  echo $_SESSION['idCurso']; ?>'/>
             <input type='hidden' name='nome' value='<?php  echo $_SESSION['nome']; ?>'/>
+            <input type='hidden' name='serie' value='<?php  echo $_SESSION['serie']; ?>'/>
 
             <div class='form-group'>
               <button type='submit' class='btn btn-outline-primary'>

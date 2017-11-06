@@ -40,7 +40,7 @@ Autor:​ ​ Allan Barbosa
                 //Cria o select dinamico pelo BD
                 echo " <select class='form-control' id='select' name='select[]'> ";
                 while($linha = $query->fetch_array() ) {
-                  echo " <option value = '".$linha["id"]."'> ".$linha["nome"]." - ID do curso: ".$linha["idCurso"]."</option> ";
+                  echo " <option value = '".$linha["id"]."'> ".$linha["nome"]." ".$linha["serie"]."° ano - ID do curso: ".$linha["idCurso"]."</option> ";
                 }
                 echo "</select>";
               ?>

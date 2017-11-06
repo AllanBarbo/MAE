@@ -43,7 +43,6 @@ public class ManutencaoDeTurmas extends Application {
         
     }
 
-    
     public void abreCriaTurma() throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(ManutencaoDeTurmas.class.getResource("view/CriarTurmas.fxml"));

@@ -34,6 +34,8 @@ public class AlterarTurmasController implements Initializable {
     private TextField idAntigo;
     @FXML
     private TextField idCurso;
+    @FXML
+    private TextField serie;
     /**
      * Initializes the controller class.
      */
@@ -58,21 +60,45 @@ public class AlterarTurmasController implements Initializable {
         ResultSet resultado = selecionarRegistros("turmas", "id", idAntigo.getText());
         resultado.first();
         Statement comando = link.createStatement();
-        if(nome.getText().equals("") && idCurso.getText().equals("")){
+        if(nome.getText().equals("") && idCurso.getText().equals("") && serie.equals("")){
             System.out.println("Dados inalterados.");
         }
-        else if(!nome.getText().equals("") && idCurso.getText().equals("")){
-            String query = "UPDATE `turmas` SET `nome` = '" + nome.getText() + "' WHERE `nome` = '" + resultado.getString("nome") + "'";
+        else if(!nome.getText().equals("") && idCurso.getText().equals("") && serie.equals("")){
+            String query = "UPDATE `turmas` SET `nome` = '" + nome.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
             comando.executeUpdate(query);
         }
-        else if(nome.getText().equals("") && !idCurso.getText().equals("")){
-            String query = "UPDATE `turmas` SET `idCurso` = '" + idCurso.getText() + "' WHERE `idCurso` = '" + resultado.getString("idCurso") + "'";
+        else if(nome.getText().equals("") && !idCurso.getText().equals("") && serie.equals("")){
+            String query = "UPDATE `turmas` SET `idCurso` = '" + idCurso.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
+            comando.executeUpdate(query);
+        }
+        else if(!nome.getText().equals("") && !idCurso.getText().equals("") && serie.equals("")){
+            String query = "UPDATE `turmas` SET `idCurso` = '" + idCurso.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
+            comando.executeUpdate(query);
+            query = "UPDATE `turmas` SET `nome` = '" + nome.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
+            comando.executeUpdate(query);
+        }
+        else if(nome.getText().equals("") && idCurso.getText().equals("") && !serie.equals("")){
+            String query = "UPDATE `turmas` SET `serie` = '" + serie.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
+            comando.executeUpdate(query);
+        }
+        else if(!nome.getText().equals("") && idCurso.getText().equals("") && !serie.equals("")){
+            String query = "UPDATE `turmas` SET `nome` = '" + nome.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
+            comando.executeUpdate(query);
+            query = "UPDATE `turmas` SET `serie` = '" + serie.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
+            comando.executeUpdate(query);
+        }
+        else if(nome.getText().equals("") && !idCurso.getText().equals("") && !serie.equals("")){
+            String query = "UPDATE `turmas` SET `idCurso` = '" + idCurso.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
+            comando.executeUpdate(query);
+            query = "UPDATE `turmas` SET `serie` = '" + serie.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
             comando.executeUpdate(query);
         }
         else{
-            String query = "UPDATE `turmas` SET `idCurso` = '" + idCurso.getText() + "' WHERE `idCurso` = '" + resultado.getString("idCurso") + "'";
+            String query = "UPDATE `turmas` SET `idCurso` = '" + idCurso.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
             comando.executeUpdate(query);
-            query = "UPDATE `turmas` SET `nome` = '" + nome.getText() + "' WHERE `nome` = '" + resultado.getString("nome") + "'";
+            query = "UPDATE `turmas` SET `nome` = '" + nome.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
+            comando.executeUpdate(query);
+            query = "UPDATE `turmas` SET `serie` = '" + serie.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
             comando.executeUpdate(query);
         }
         

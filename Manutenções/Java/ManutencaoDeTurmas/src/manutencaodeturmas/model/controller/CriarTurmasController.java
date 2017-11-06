@@ -32,6 +32,8 @@ public class CriarTurmasController implements Initializable {
     private TextField idCurso;
     @FXML
     private TextField nome;
+    @FXML
+    private TextField serie;
     
     /**
      * Initializes the controller class.
@@ -55,7 +57,7 @@ public class CriarTurmasController implements Initializable {
     @FXML
     public void criaTurma() throws SQLException, IOException{
         Statement comando = link.createStatement();
-        String query = "INSERT INTO `turmas` (`idCurso`, `nome`, `ativo`) VALUES ('" + idCurso.getText() + "', '" + nome.getText() + "', 'S');";
+        String query = "INSERT INTO `turmas` ( `idCurso`, `serie`, `nome`, `ativo`) VALUES ('" + idCurso.getText() + "', '" + serie.getText() + "', '" + nome.getText() + "', 'S');";
         comando.executeUpdate(query);
         System.out.println("Criou uma turma.");
         alteraTelaInicial();

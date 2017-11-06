@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="manutencaodeturmas.model.controller.CriarTurmasController">
     <children>
@@ -12,6 +11,8 @@
       <Label layoutX="275.0" layoutY="168.0" prefHeight="25.0" prefWidth="172.0" text="Digite o nome da nova turma:" />
       <TextField fx:id="idCurso" layoutX="277.0" layoutY="307.0" prefHeight="25.0" prefWidth="196.0" />
       <Label layoutX="276.0" layoutY="268.0" prefHeight="25.0" prefWidth="196.0" text="Digite o id do curso da nova turma:" />
-      <Button layoutX="408.0" layoutY="365.0" mnemonicParsing="false" onAction="#criaTurma" prefHeight="25.0" prefWidth="65.0" text="Criar" />
+      <Button layoutX="407.0" layoutY="468.0" mnemonicParsing="false" onAction="#criaTurma" prefHeight="25.0" prefWidth="65.0" text="Criar" />
+      <TextField fx:id="serie" layoutX="278.0" layoutY="408.0" prefHeight="25.0" prefWidth="196.0" />
+      <Label layoutX="277.0" layoutY="369.0" prefHeight="25.0" prefWidth="172.0" text="Digite a serie da nova turma:" />
    </children>
 </AnchorPane>

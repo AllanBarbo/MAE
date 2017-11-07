@@ -5,7 +5,6 @@
  */
 package manutencaodeturmas.model.controller;
 
-import manutencaodeturmas.model.controller.TelaInicialController;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.DriverManager;

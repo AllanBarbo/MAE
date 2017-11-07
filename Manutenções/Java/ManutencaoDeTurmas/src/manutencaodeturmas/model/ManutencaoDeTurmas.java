@@ -26,13 +26,13 @@ import manutencaodeturmas.model.controller.TelaInicialController;
  * @author mathe
  */
 public class ManutencaoDeTurmas extends Application {
-   
+
     private Stage stage;
     private BorderPane borda;
-    
+
     @Override
-    public void start(Stage stage){
-        
+    public void start(Stage stage) {
+
         this.stage = stage;
         try {
             abreBaseTelaInicial();
@@ -40,10 +40,10 @@ public class ManutencaoDeTurmas extends Application {
         } catch (IOException ex) {
             Logger.getLogger(ManutencaoDeTurmas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
-    public void abreCriaTurma() throws IOException{
+    public void abreCriaTurma() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(ManutencaoDeTurmas.class.getResource("view/CriarTurmas.fxml"));
         AnchorPane tela = (AnchorPane) loader.load();
@@ -51,8 +51,8 @@ public class ManutencaoDeTurmas extends Application {
         CriarTurmasController controller = loader.getController();
         controller.setMain(this);
     }
-    
-    public void abreAlteraTurma() throws IOException{
+
+    public void abreAlteraTurma() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(ManutencaoDeTurmas.class.getResource("view/AlterarTurmas.fxml"));
         AnchorPane tela = (AnchorPane) loader.load();
@@ -60,17 +60,8 @@ public class ManutencaoDeTurmas extends Application {
         AlterarTurmasController controller = loader.getController();
         controller.setMain(this);
     }
-    
-    public void AlterarTurmasMudarDados() throws IOException{
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(ManutencaoDeTurmas.class.getResource("view/AlterarTurmasMudarDados.fxml"));
-        AnchorPane tela = (AnchorPane) loader.load();
-        borda.setCenter(tela);
-        AlterarTurmasController controller = loader.getController();
-        controller.setMain(this);
-    }
-    
-    public void abreApagaTurma() throws IOException{
+
+    public void abreApagaTurma() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(ManutencaoDeTurmas.class.getResource("view/ApagarTurmas.fxml"));
         AnchorPane tela = (AnchorPane) loader.load();
@@ -78,16 +69,16 @@ public class ManutencaoDeTurmas extends Application {
         ApagarTurmasController controller = loader.getController();
         controller.setMain(this);
     }
-    
-    public void abreBaseTelaInicial() throws IOException{
+
+    public void abreBaseTelaInicial() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(ManutencaoDeTurmas.class.getResource("view/Borda.fxml"));
         borda = (BorderPane) loader.load();
         stage.setScene(new Scene(borda));
         stage.show();
     }
-    
-    public void abreTelaInicial() throws IOException{
+
+    public void abreTelaInicial() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(ManutencaoDeTurmas.class.getResource("view/TelaInicial.fxml"));
         AnchorPane tela = (AnchorPane) loader.load();
@@ -95,9 +86,9 @@ public class ManutencaoDeTurmas extends Application {
         TelaInicialController controller = loader.getController();
         controller.setMain(this);
     }
-    
+
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

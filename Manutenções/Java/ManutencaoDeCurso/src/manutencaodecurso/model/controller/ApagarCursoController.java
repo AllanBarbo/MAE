@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package manutencaodeturmas.model.controller;
+package manutencaodecurso.model.controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,49 +19,33 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import manutencaodeturmas.model.ManutencaoDeTurmas;
+import manutencaodecurso.model.ManutencaoDeCurso;
 
 /**
  * FXML Controller class
  *
  * @author mathe
  */
-public class AlterarTurmasController implements Initializable {
+public class ApagarCursoController implements Initializable {
 
-    private ManutencaoDeTurmas main;
-    private com.mysql.jdbc.Connection link;
+    private com.mysql.jdbc.Connection link = null;
+    private static ManutencaoDeCurso main;
 
     @FXML
-    private TextField nome;
-    @FXML
-    private TextField idCurso;
-    @FXML
-    private TextField serie;
-    @FXML
-    private Label labelEnunciado;
-    @FXML
-    private Label labelNome;
-    @FXML
-    private Label labelIdCurso;
-    @FXML
-    private Label labelSerie;
-
+    private TextField idTurma;
     @FXML
     private ChoiceBox campi;
     @FXML
     private ChoiceBox depto;
     @FXML
-    private ChoiceBox curso;
-    @FXML
-    private ListView turmas;
+    private ListView curso;;
 
     private ObservableList listaCampi = FXCollections.observableArrayList();
     private ObservableList listaDepto = FXCollections.observableArrayList();
     private ObservableList listaCurso = FXCollections.observableArrayList();
-    private ObservableList listaTurma = FXCollections.observableArrayList();
+
 
     /**
      * Initializes the controller class.
@@ -75,7 +59,7 @@ public class AlterarTurmasController implements Initializable {
             // TODO
             link = (com.mysql.jdbc.Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/educatio", "root", "");
         } catch (SQLException ex) {
-            Logger.getLogger(AlterarTurmasController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlterarCursoController.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (link == null) {
             System.out.println("Erro!");
@@ -88,7 +72,7 @@ public class AlterarTurmasController implements Initializable {
                 listaCampi.add(resultado.getString("nome"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AlterarTurmasController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlterarCursoController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         campi.setItems(listaCampi);
@@ -98,7 +82,7 @@ public class AlterarTurmasController implements Initializable {
                     try {
                         atualizaListaDepto(newValue.toString());
                     } catch (SQLException ex) {
-                        Logger.getLogger(AlterarTurmasController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(AlterarCursoController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
 
@@ -107,50 +91,31 @@ public class AlterarTurmasController implements Initializable {
                     try {
                         atualizaListaCurso(newValue.toString());
                     } catch (SQLException ex) {
-                        Logger.getLogger(AlterarTurmasController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(AlterarCursoController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
 
-        curso.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    try {
-                        atualizaListaTurmas(newValue.toString());
-                    } catch (SQLException ex) {
-                        Logger.getLogger(AlterarTurmasController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                });
-
-        turmas.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    setVisivel();
-                });
     }
 
     @FXML
-    public void alteraTurma() throws SQLException, IOException {
-        String nomeFormatado = turmas.getSelectionModel().getSelectedItems().toString().replace("[", "");
+    public void apagaCurso() throws SQLException, IOException {
+        String nomeFormatado = curso.getSelectionModel().getSelectedItems().toString().replace("[", "");
         nomeFormatado = nomeFormatado.replace("]", "");
-        ResultSet resultado = selecionarRegistros("turmas", "nome", nomeFormatado);
-        resultado.first();
-
         Statement comando = link.createStatement();
-
-        if (!nome.getText().equals("")) {
-            String query = "UPDATE `turmas` SET `nome` = '" + nome.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
-            comando.executeUpdate(query);
-        }
-
-        if (!serie.getText().equals("")) {
-            String query = "UPDATE `turmas` SET `nome` = '" + serie.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
-            comando.executeUpdate(query);
-        }
-
-        if (!idCurso.getText().equals("")) {
-            String query = "UPDATE `turmas` SET `nome` = '" + idCurso.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
-            comando.executeUpdate(query);
-        }
-
+        ResultSet resultado = selecionarRegistros("cursos", "nome", nomeFormatado);
+        resultado.next();
+        String query = "UPDATE `cursos` SET `ativo` = 'N' WHERE `cursos`.`id` = " + resultado.getString("id");
+        comando.executeUpdate(query);
         alteraTelaInicial();
+    }
+
+    @FXML
+    public void alteraTelaInicial() throws IOException {
+        main.abreTelaInicial();
+    }
+
+    public void setMain(ManutencaoDeCurso main) {
+        this.main = main;
     }
 
     public ResultSet selecionarRegistros(String tabela, String pesquisa, String pesquisado) throws SQLException {
@@ -167,19 +132,10 @@ public class AlterarTurmasController implements Initializable {
         return resultado;
     }
 
-    public void alteraTelaInicial() throws IOException {
-        main.abreTelaInicial();
-    }
-
-    public void setMain(ManutencaoDeTurmas main) {
-        this.main = main;
-    }
-
     @FXML
     public void atualizaListaDepto(String valor) throws SQLException {
         listaDepto.clear();
         listaCurso.clear();
-        listaTurma.clear();
         ResultSet resultado = selecionarRegistros("campi", "nome", valor);
         resultado.next();
         ResultSet resultado2 = selecionarRegistros("deptos", "idCampi", resultado.getString("id"));
@@ -203,26 +159,6 @@ public class AlterarTurmasController implements Initializable {
 
         curso.setItems(listaCurso);
     }
-
-    public void atualizaListaTurmas(String valor) throws SQLException {
-        listaTurma.clear();
-        ResultSet resultado = selecionarRegistros("cursos", "nome", valor);
-        resultado.next();
-        ResultSet resultado2 = selecionarRegistros("turmas", "idCurso", resultado.getString("id"));
-        while (resultado2.next()) {
-            listaTurma.add(resultado2.getString("nome"));
-        }
-
-        turmas.setItems(listaTurma);
-    }
-
-    public void setVisivel() {
-        labelEnunciado.setVisible(true);
-        labelNome.setVisible(true);
-        labelIdCurso.setVisible(true);
-        nome.setVisible(true);
-        idCurso.setVisible(true);
-        serie.setVisible(true);
-        labelSerie.setVisible(true);
-    }
+  
+    
 }

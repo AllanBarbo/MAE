@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package manutencaodeturmas.model.controller;
+package manutencaodecurso.model.controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,46 +22,51 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import manutencaodeturmas.model.ManutencaoDeTurmas;
+import manutencaodecurso.model.ManutencaoDeCurso;
 
 /**
  * FXML Controller class
  *
  * @author mathe
  */
-public class AlterarTurmasController implements Initializable {
+public class AlterarCursoController implements Initializable {
 
-    private ManutencaoDeTurmas main;
+    private ManutencaoDeCurso main;
     private com.mysql.jdbc.Connection link;
 
     @FXML
     private TextField nome;
     @FXML
-    private TextField idCurso;
+    private TextField idDepto;
     @FXML
-    private TextField serie;
+    private TextField horasTotais;
+    @FXML
+    private TextField modalidade;
     @FXML
     private Label labelEnunciado;
     @FXML
     private Label labelNome;
     @FXML
-    private Label labelIdCurso;
+    private Label labelIdDepto;
     @FXML
-    private Label labelSerie;
+    private Label labelModalidade;
+    @FXML
+    private Label labelHorasTotais;
+    
+    
+    
 
     @FXML
     private ChoiceBox campi;
     @FXML
     private ChoiceBox depto;
     @FXML
-    private ChoiceBox curso;
-    @FXML
-    private ListView turmas;
+    private ListView curso;
+
 
     private ObservableList listaCampi = FXCollections.observableArrayList();
     private ObservableList listaDepto = FXCollections.observableArrayList();
     private ObservableList listaCurso = FXCollections.observableArrayList();
-    private ObservableList listaTurma = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
@@ -75,7 +80,7 @@ public class AlterarTurmasController implements Initializable {
             // TODO
             link = (com.mysql.jdbc.Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/educatio", "root", "");
         } catch (SQLException ex) {
-            Logger.getLogger(AlterarTurmasController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlterarCursoController.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (link == null) {
             System.out.println("Erro!");
@@ -88,7 +93,7 @@ public class AlterarTurmasController implements Initializable {
                 listaCampi.add(resultado.getString("nome"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AlterarTurmasController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlterarCursoController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         campi.setItems(listaCampi);
@@ -98,7 +103,7 @@ public class AlterarTurmasController implements Initializable {
                     try {
                         atualizaListaDepto(newValue.toString());
                     } catch (SQLException ex) {
-                        Logger.getLogger(AlterarTurmasController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(AlterarCursoController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
 
@@ -107,46 +112,43 @@ public class AlterarTurmasController implements Initializable {
                     try {
                         atualizaListaCurso(newValue.toString());
                     } catch (SQLException ex) {
-                        Logger.getLogger(AlterarTurmasController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(AlterarCursoController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
 
         curso.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
-                    try {
-                        atualizaListaTurmas(newValue.toString());
-                    } catch (SQLException ex) {
-                        Logger.getLogger(AlterarTurmasController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                });
-
-        turmas.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
                     setVisivel();
                 });
+
     }
 
     @FXML
-    public void alteraTurma() throws SQLException, IOException {
-        String nomeFormatado = turmas.getSelectionModel().getSelectedItems().toString().replace("[", "");
+    public void alteraCurso() throws SQLException, IOException {
+        String nomeFormatado = curso.getSelectionModel().getSelectedItems().toString().replace("[", "");
         nomeFormatado = nomeFormatado.replace("]", "");
-        ResultSet resultado = selecionarRegistros("turmas", "nome", nomeFormatado);
+        ResultSet resultado = selecionarRegistros("cursos", "nome", nomeFormatado);
         resultado.first();
 
         Statement comando = link.createStatement();
-
-        if (!nome.getText().equals("")) {
-            String query = "UPDATE `turmas` SET `nome` = '" + nome.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
+                
+        if(!nome.getText().equals("")){
+            String query = "UPDATE `cursos` SET `nome` = '" + nome.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
             comando.executeUpdate(query);
         }
-
-        if (!serie.getText().equals("")) {
-            String query = "UPDATE `turmas` SET `nome` = '" + serie.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
+        
+        if(!idDepto.getText().equals("")){
+            String query = "UPDATE `cursos` SET `nome` = '" + idDepto.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
             comando.executeUpdate(query);
         }
-
-        if (!idCurso.getText().equals("")) {
-            String query = "UPDATE `turmas` SET `nome` = '" + idCurso.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
+        
+        if(!horasTotais.getText().equals("")){
+            String query = "UPDATE `cursos` SET `horasTotal` = '" + horasTotais.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
+            comando.executeUpdate(query);
+        }
+        
+        if(!modalidade.getText().equals("")){
+            String query = "UPDATE `cursos` SET `horasTotal` = '" + modalidade.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
             comando.executeUpdate(query);
         }
 
@@ -171,7 +173,7 @@ public class AlterarTurmasController implements Initializable {
         main.abreTelaInicial();
     }
 
-    public void setMain(ManutencaoDeTurmas main) {
+    public void setMain(ManutencaoDeCurso main) {
         this.main = main;
     }
 
@@ -179,10 +181,11 @@ public class AlterarTurmasController implements Initializable {
     public void atualizaListaDepto(String valor) throws SQLException {
         listaDepto.clear();
         listaCurso.clear();
-        listaTurma.clear();
+        
         ResultSet resultado = selecionarRegistros("campi", "nome", valor);
         resultado.next();
         ResultSet resultado2 = selecionarRegistros("deptos", "idCampi", resultado.getString("id"));
+        
         while (resultado2.next()) {
             listaDepto.add(resultado2.getString("nome"));
         }
@@ -192,11 +195,12 @@ public class AlterarTurmasController implements Initializable {
 
     @FXML
     public void atualizaListaCurso(String valor) throws SQLException {
-
         listaCurso.clear();
+        
         ResultSet resultado = selecionarRegistros("deptos", "nome", valor);
         resultado.next();
         ResultSet resultado2 = selecionarRegistros("cursos", "idDepto", resultado.getString("id"));
+        
         while (resultado2.next()) {
             listaCurso.add(resultado2.getString("nome"));
         }
@@ -204,25 +208,15 @@ public class AlterarTurmasController implements Initializable {
         curso.setItems(listaCurso);
     }
 
-    public void atualizaListaTurmas(String valor) throws SQLException {
-        listaTurma.clear();
-        ResultSet resultado = selecionarRegistros("cursos", "nome", valor);
-        resultado.next();
-        ResultSet resultado2 = selecionarRegistros("turmas", "idCurso", resultado.getString("id"));
-        while (resultado2.next()) {
-            listaTurma.add(resultado2.getString("nome"));
-        }
-
-        turmas.setItems(listaTurma);
-    }
-
     public void setVisivel() {
         labelEnunciado.setVisible(true);
         labelNome.setVisible(true);
-        labelIdCurso.setVisible(true);
+        labelIdDepto.setVisible(true);
+        labelHorasTotais.setVisible(true);
+        labelModalidade.setVisible(true);
         nome.setVisible(true);
-        idCurso.setVisible(true);
-        serie.setVisible(true);
-        labelSerie.setVisible(true);
+        idDepto.setVisible(true);
+        horasTotais.setVisible(true);
+        modalidade.setVisible(true);
     }
 }

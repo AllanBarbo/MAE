@@ -37,7 +37,7 @@ if ($conn->connect_error) {
             }
             else{
               echo "<script>alert('Erro ao editar Turma: ".$conn->error." ')</script>";
-              echo "<script>window.location.href = 'http://localhost/MAE/ManutencaoTurmas/MAE-Web-ManutencaoTurmas-SelecionarTurma-Editar.php';</script>";
+              //echo "<script>window.location.href = 'http://localhost/MAE/ManutencaoTurmas/MAE-Web-ManutencaoTurmas-SelecionarTurma-Editar.php';</script>";
             }
           }
 

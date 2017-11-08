@@ -2,23 +2,56 @@
 <!DOCTYPE html>
 <html lang='pt-br'>
   <head>
-    <!-- Bootstrap -->
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+      <title>Remover Curso</title>
+      <meta charset="utf-8" />
+      <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+      <meta name="viewport" content="width=device-width" />
 
-    <title>Manutenção de turmas</title>
+      <!-- CSS do Bootstrap -->
+      <link href="css/bootstrap.min.css" rel="stylesheet" />
+      <link href="css/bootstrap.css" rel="stylesheet"/>
 
-    <!-- jQuery (plugins JavaScript do Bootstrap) -->
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
-    <script src='js/bootstrap.min.js'></script>
+      <!-- Arquivos js -->
+      <script src="js/jquery-3.2.1.js" type="text/javascript"></script>
+      <script src="js/bootstrap.min.js" type="text/javascript"></script>
+
+      <!-- Fontes e icones -->
+      <link href="https://fonts.googleapis.com/css?family=Abel|Inconsolata" rel="stylesheet">
+      <link href="css/nucleo-icons.css" rel="stylesheet">
+
+      <script type="text/javascript" src="js/MAE-web-script.js"></script>
+
+      <style type="text/css">
+      .text-center{
+         font-family: 'Abel', sans-serif;
+         color: #d8ac29;
+      }
+      .fonteTexto{
+         font-family: 'Inconsolata', monospace;
+         font-size: 16px;
+      }
+      .btn-info {
+        background-color: #162e87;
+        border-color: #162e87;
+        color: #FFFFFF;
+        opacity: 1;
+        filter: alpha(opacity=100);
+      }
+      .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .show > .btn-info.dropdown-toggle {
+        background-color: #11277a;
+        color: #FFFFFF;
+        border-color: #11277a;
+      }
+      </style>
   </head>
   <body>
-    <!--Div container -->
-    <div class='container'>
-        <h2><center>Manutenção de turmas</center></h2><br>
+    <div class="wrapper">
+      <div class="section landing-sectionv">
+       <div class="container">
+         <div class="row">
+           <div class="col-md-8 ml-auto mr-auto">
+
+        <h2 class="text-center">Exclusão de Turma</h2>
         <center><div class='.col-xs-9'>
           <?php
               // Verifica se usuário escolheu algum nome
@@ -89,6 +122,10 @@
               }
           ?>
 
+        </div>
+       </div>
       </div>
+     </div>
+    </div>
   </body>
 </html>

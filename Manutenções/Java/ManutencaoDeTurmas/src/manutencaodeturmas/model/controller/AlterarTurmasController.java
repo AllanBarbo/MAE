@@ -141,12 +141,12 @@ public class AlterarTurmasController implements Initializable {
         }
 
         if (!serie.getText().equals("")) {
-            String query = "UPDATE `turmas` SET `nome` = '" + serie.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
+            String query = "UPDATE `turmas` SET `serie` = '" + serie.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
             comando.executeUpdate(query);
         }
 
         if (!idCurso.getText().equals("")) {
-            String query = "UPDATE `turmas` SET `nome` = '" + idCurso.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
+            String query = "UPDATE `turmas` SET `idCurso` = '" + idCurso.getText() + "' WHERE `id` = '" + resultado.getString("id") + "'";
             comando.executeUpdate(query);
         }
 

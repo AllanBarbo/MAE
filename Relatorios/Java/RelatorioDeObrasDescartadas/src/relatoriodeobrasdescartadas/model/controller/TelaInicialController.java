@@ -21,6 +21,7 @@ import relatoriodeobrasdescartadas.model.RelatorioDeObrasDescartadas;
  * FXML Controller class
  *
  * @author mathe
+ * @param <E>
  */
 public class TelaInicialController<E> implements Initializable {
 
@@ -47,12 +48,12 @@ public class TelaInicialController<E> implements Initializable {
     }
 
     @FXML
-    public void alteraTelaRelatorio() throws IOException {
+    public void alteraTelaRelatorio() throws IOException, SQLException {
         main.abreTelaRelatorio(livro.getText());
     }
 
     public void setMain(RelatorioDeObrasDescartadas main) {
-        this.main = main;
+        TelaInicialController.main = main;
     }
 
 }

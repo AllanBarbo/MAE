@@ -30,10 +30,10 @@ import manutencaodeturmas.model.ManutencaoDeTurmas;
  * @author mathe
  */
 public class CriarTurmasController implements Initializable {
-    
+
     private com.mysql.jdbc.Connection link = null;
     private static ManutencaoDeTurmas main;
-    
+
     @FXML
     private TextField nome;
     @FXML
@@ -44,18 +44,20 @@ public class CriarTurmasController implements Initializable {
     private ChoiceBox depto;
     @FXML
     private ChoiceBox curso;
-   
 
     private ObservableList listaCampi = FXCollections.observableArrayList();
     private ObservableList listaDepto = FXCollections.observableArrayList();
     private ObservableList listaCurso = FXCollections.observableArrayList();
-    private Label labelEnunciado;
+
+    @FXML
     private Label labelNome;
+    @FXML
     private Label labelSerie;
+
     /**
      * Initializes the controller class.
      */
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -102,38 +104,41 @@ public class CriarTurmasController implements Initializable {
                 (observable, oldValue, newValue) -> {
                     setVisivel();
                 });
-            
-    } 
-    
+
+    }
+
     @FXML
-    public void criaTurma() throws SQLException, IOException{
+    public void criaTurma() throws SQLException, IOException {
+        ResultSet resultado = selecionarRegistros("cursos", "nome", curso.getSelectionModel().getSelectedItem().toString());
         Statement comando = link.createStatement();
-        String query = "INSERT INTO `turmas` ( `idCurso`, `serie`, `nome`, `ativo`) VALUES ('" + curso.get + "', '" + serie.getText() + "', '" + nome.getText() + "', 'S');";
+        resultado.first();
+        String query = "INSERT INTO `turmas` ( `idCurso`, `serie`, `nome`, `ativo`) VALUES ('" + resultado.getString("id") + "', '" + serie.getText() + "', '" + nome.getText() + "', 'S');";
         comando.executeUpdate(query);
         System.out.println("Criou uma turma.");
         alteraTelaInicial();
     }
-    
+
     @FXML
-    public void alteraTelaInicial() throws IOException{
+    public void alteraTelaInicial() throws IOException {
         main.abreTelaInicial();
     }
+
     public void setMain(ManutencaoDeTurmas main) {
         this.main = main;
     }
-    
+
     public ResultSet selecionarRegistros(String tabela) throws SQLException {
         Statement comando = link.createStatement();
-        String query = "SELECT * FROM `" + tabela + "`";
+        String query = "SELECT * FROM `" + tabela + "` WHERE ativo = S";
         ResultSet resultado = comando.executeQuery(query);
         return resultado;
     }
-    
+
     @FXML
     public void atualizaListaDepto(String valor) throws SQLException {
         listaDepto.clear();
         listaCurso.clear();
-        
+
         ResultSet resultado = selecionarRegistros("campi", "nome", valor);
         resultado.next();
         ResultSet resultado2 = selecionarRegistros("deptos", "idCampi", resultado.getString("id"));
@@ -157,14 +162,15 @@ public class CriarTurmasController implements Initializable {
 
         curso.setItems(listaCurso);
     }
+
     public ResultSet selecionarRegistros(String tabela, String pesquisa, String pesquisado) throws SQLException {
         Statement comando = link.createStatement();
-        String query = "SELECT * FROM `" + tabela + "` WHERE " + pesquisa + " = \'" + pesquisado + "\'";
+        String query = "SELECT * FROM `" + tabela + "` WHERE " + pesquisa + " = \'" + pesquisado + "\' AND ativo = 'S'";
         ResultSet resultado = comando.executeQuery(query);
         return resultado;
     }
+
     public void setVisivel() {
-        labelEnunciado.setVisible(true);
         labelNome.setVisible(true);
         nome.setVisible(true);
         serie.setVisible(true);

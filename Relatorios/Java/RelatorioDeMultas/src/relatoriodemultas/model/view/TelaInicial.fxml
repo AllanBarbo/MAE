@@ -11,6 +11,6 @@
       <TextField fx:id="aluno" layoutX="188.0" layoutY="284.0" prefHeight="25.0" prefWidth="355.0" promptText="Digite o nome do aluno aqui..." />
       <Button fx:id="download" layoutX="458.0" layoutY="331.0" mnemonicParsing="false" text="Download" />
       <Button fx:id="mostrar" layoutX="366.0" layoutY="331.0" mnemonicParsing="false" onAction="#alteraTelaRelatorio" text="Mostrar" />
-      <Label layoutX="200.0" layoutY="127.0" styleClass="label-cabecalho" text="Relatório de Multas" />
+      <Label layoutX="200.0" layoutY="127.0" styleClass="label-cabecalho" text="Relatório de Atrasos" />
    </children>
 </AnchorPane>

@@ -7,14 +7,14 @@ and open the template in the editor.
     Created on : 24/10/2017, 22:29:53
     Author     : 7
 */
-/*Padrão de background cor*/
+/*Padrï¿½o de background cor*/
 
 .background
 {
     -fx-background-color:#2644B2;
 }
 
-/*Padrão de botão*/
+/*Padrï¿½o de botï¿½o*/
 
 .button
 {
@@ -32,7 +32,7 @@ and open the template in the editor.
     -fx-background-color: #6989FF;
 }
 
-/*Padrão de botão de rádio*/
+/*Padrï¿½o de botï¿½o de rï¿½dio*/
 
 .radio-button{
     -fx-padding: 5px;   
@@ -57,43 +57,43 @@ and open the template in the editor.
     -fx-background-radius: 80px;
     -fx-padding: 5px;
     -fx-mark-color: white ;
-    
+
 }
-/*Padrão de checkbox*/
+/*Padrï¿½o de checkbox*/
 
 .check-box {
 
--fx-padding: 5px;   
- -fx-border-color: #6989FF;
- -fx-border-width: 1px;
- -fx-background-radius: 0px;
- -fx-background-color: #4F75FF;
- -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
- -fx-font-size: 12pt;
-  -fx-text-fill: #ffffff;
-  -fx-alignment: CENTER;
+    -fx-padding: 5px;   
+    -fx-border-color: #6989FF;
+    -fx-border-width: 1px;
+    -fx-background-radius: 0px;
+    -fx-background-color: #4F75FF;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 12pt;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: CENTER;
 
 }
 .check-box .box {
 
--fx-background-color: #6989FF;
--fx-border-color:#d8ac29;
--fx-border-radius:1px; 
+    -fx-background-color: #6989FF;
+    -fx-border-color:#d8ac29;
+    -fx-border-radius:1px; 
 
 }
 
 .check-box:selected .mark {
 
--fx-background-color: white;
+    -fx-background-color: white;
 
 }
 
 .check-box:selected .box {
 
--fx-background-color:#6989FF;
+    -fx-background-color:#6989FF;
 }
 
-/*Padrão de textfield*/
+/*Padrï¿½o de textfield*/
 
 .text-field
 {
@@ -103,7 +103,7 @@ and open the template in the editor.
     -fx-border-width: 1px;
 }
 
-/*Padrão de textarea*/
+/*Padrï¿½o de textarea*/
 .text-area{
     -fx-text-fill: #ffffff;
     -fx-border-color: #d8ac29;
@@ -114,7 +114,7 @@ and open the template in the editor.
     -fx-background-color: #6989FF;
 }
 
-/*Padrão de choice box*/
+/*Padrï¿½o de choice box*/
 
 .choice-box
 {
@@ -124,7 +124,7 @@ and open the template in the editor.
     -fx-border-width: 1px;
 }
 
-/*Padrão de list-view*/
+/*Padrï¿½o de list-view*/
 
 .list-view
 {
@@ -134,67 +134,9 @@ and open the template in the editor.
     -fx-border-width: 1px;
 }
 
-/*Padrão de tableview*/
-.table-view{
-   -fx-background-color: transparent;
-}
-
-.table-view:focused{
-    -fx-background-color: transparent;
-}
-/*Header*/
-.table-view .column-header-background{
-    -fx-background-color: linear-gradient(#6989FF 0%, #2644B2 100%);
-}
-
-.table-view .column-header-background .label{
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
-}
-
-.table-view .column-header {
-    -fx-background-color: transparent;
-}
-/*Cor do texto*/
-.table-view .table-cell{
-    -fx-text-fill: white;
-}
-/*Cor das linhas impares*/
-.table-row-cell{
-    -fx-background-color: -fx-table-cell-border-color, #6989FF;
-    -fx-background-insets: 0, 0 0 1 0;
-    -fx-padding: 0.0em; /* 0 */
-}
-/*Cor das linhas pares*/
-.table-row-cell:odd{
-    -fx-background-color: -fx-table-cell-border-color, #2644B2;
-    -fx-background-insets: 0, 0 0 1 0;
-    -fx-padding: 0.0em; /* 0 */  
-}
-
-.table-row-cell:selected {
-    -fx-background-color: #005797;
-    -fx-background-insets: 0;
-    -fx-background-radius: 1;
-}
-
-.table-view > .virtual-flow > .scroll-bar:vertical,
-.table-view > .virtual-flow > .scroll-bar:vertical > .track,
-.table-view > .virtual-flow > .scroll-bar:vertical > .track-background, 
-.table-view > .virtual-flow > .scroll-bar:horizontal,
-.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
-.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
-    -fx-background-color: transparent;
-}
 
 
-
-.table-view > .virtual-flow > .scroll-bar > .increment-button, 
-.table-view > .virtual-flow > .scroll-bar > .decrement-button {
-    -fx-opacity: 0;
-}
-
-/*Padrão de date-picker*/
+/*Padrï¿½o de date-picker*/
 
 .date-picker
 {
@@ -204,7 +146,7 @@ and open the template in the editor.
     -fx-border-width: 1px;
 }
 
-/*Padrão de label para formulários*/
+/*Padrï¿½o de label para formulï¿½rios*/
 
 .label-pequena{
     -fx-font-family: 'Times New Roman';
@@ -213,7 +155,7 @@ and open the template in the editor.
     -fx-alignment: CENTER;
 }
 
-/*Padrão de label para cabeçalhos*/
+/*Padrï¿½o de label para cabeï¿½alhos*/
 
 .label-cabecalho
 {
@@ -224,7 +166,7 @@ and open the template in the editor.
 
 }
 
-/*Padrão de menu*/
+/*Padrï¿½o de menu*/
 
 .menu{
     -fx-padding: 5px;
@@ -233,19 +175,19 @@ and open the template in the editor.
     -fx-text-fill: rgb(255, 255, 255);
     -fx-background-color:#2644B2;
     -fx-alignment:center;
-    
+
 }
 
-/*Padrão de menu-bar*/
+/*Padrï¿½o de menu-bar*/
 
 .menu-bar{
     -fx-background-color:#2644B2;
     -fx-text-base-color:white;  
 }
-/*Padrão de menu-item*/
+/*Padrï¿½o de menu-item*/
 
 .menu-item{
     -fx-background-color:#2644B2;
     -fx-text-base-color:white; 
-    
+
 }

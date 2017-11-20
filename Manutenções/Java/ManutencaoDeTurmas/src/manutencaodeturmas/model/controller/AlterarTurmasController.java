@@ -85,7 +85,8 @@ public class AlterarTurmasController implements Initializable {
         try {
             ResultSet resultado = selecionarRegistros("campi");
             while (resultado.next()) {
-                listaCampi.add(resultado.getString("nome"));
+                if(resultado.getString("ativo").equals("S"))
+                    listaCampi.add(resultado.getString("nome"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AlterarTurmasController.class.getName()).log(Level.SEVERE, null, ex);
@@ -179,14 +180,16 @@ public class AlterarTurmasController implements Initializable {
     public void atualizaListaDepto(String valor) throws SQLException {
         listaDepto.clear();
         listaCurso.clear();
-        listaTurma.clear();
+
         ResultSet resultado = selecionarRegistros("campi", "nome", valor);
         resultado.next();
-        ResultSet resultado2 = selecionarRegistros("deptos", "idCampi", resultado.getString("id"));
-        while (resultado2.next()) {
-            listaDepto.add(resultado2.getString("nome"));
+        if(resultado.getString("ativo").equals("S")){
+            ResultSet resultado2 = selecionarRegistros("deptos", "idCampi", resultado.getString("id"));
+            while (resultado2.next()) {
+                if(resultado2.getString("ativo").equals("S"))
+                    listaDepto.add(resultado2.getString("nome"));
+            }
         }
-
         depto.setItems(listaDepto);
     }
 
@@ -196,11 +199,13 @@ public class AlterarTurmasController implements Initializable {
         listaCurso.clear();
         ResultSet resultado = selecionarRegistros("deptos", "nome", valor);
         resultado.next();
-        ResultSet resultado2 = selecionarRegistros("cursos", "idDepto", resultado.getString("id"));
-        while (resultado2.next()) {
-            listaCurso.add(resultado2.getString("nome"));
+        if(resultado.getString("ativo").equals("S")){
+            ResultSet resultado2 = selecionarRegistros("cursos", "idDepto", resultado.getString("id"));
+            while (resultado2.next()) {
+                if(resultado2.getString("ativo").equals("S"))
+                listaCurso.add(resultado2.getString("nome"));
+            }
         }
-
         curso.setItems(listaCurso);
     }
 
@@ -208,11 +213,13 @@ public class AlterarTurmasController implements Initializable {
         listaTurma.clear();
         ResultSet resultado = selecionarRegistros("cursos", "nome", valor);
         resultado.next();
-        ResultSet resultado2 = selecionarRegistros("turmas", "idCurso", resultado.getString("id"));
-        while (resultado2.next()) {
-            listaTurma.add(resultado2.getString("nome"));
+        if(resultado.getString("ativo").equals("S")){
+            ResultSet resultado2 = selecionarRegistros("turmas", "idCurso", resultado.getString("id"));
+            while (resultado2.next()) {
+                if(resultado2.getString("ativo").equals("S"))
+                    listaTurma.add(resultado2.getString("nome"));
+            }
         }
-
         turmas.setItems(listaTurma);
     }
 

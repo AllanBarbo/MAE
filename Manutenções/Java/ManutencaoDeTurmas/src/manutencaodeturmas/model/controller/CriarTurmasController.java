@@ -74,7 +74,8 @@ public class CriarTurmasController implements Initializable {
         try {
             ResultSet resultado = selecionarRegistros("campi");
             while (resultado.next()) {
-                listaCampi.add(resultado.getString("nome"));
+                if(resultado.getString("ativo").equals("S"))
+                    listaCampi.add(resultado.getString("nome"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AlterarTurmasController.class.getName()).log(Level.SEVERE, null, ex);
@@ -124,12 +125,12 @@ public class CriarTurmasController implements Initializable {
     }
 
     public void setMain(ManutencaoDeTurmas main) {
-        this.main = main;
+        CriarTurmasController.main = main;
     }
 
     public ResultSet selecionarRegistros(String tabela) throws SQLException {
         Statement comando = link.createStatement();
-        String query = "SELECT * FROM `" + tabela + "` WHERE ativo = S";
+        String query = "SELECT * FROM `" + tabela;
         ResultSet resultado = comando.executeQuery(query);
         return resultado;
     }
@@ -141,11 +142,13 @@ public class CriarTurmasController implements Initializable {
 
         ResultSet resultado = selecionarRegistros("campi", "nome", valor);
         resultado.next();
-        ResultSet resultado2 = selecionarRegistros("deptos", "idCampi", resultado.getString("id"));
-        while (resultado2.next()) {
-            listaDepto.add(resultado2.getString("nome"));
+        if(resultado.getString("ativo").equals("S")){
+            ResultSet resultado2 = selecionarRegistros("deptos", "idCampi", resultado.getString("id"));
+            while (resultado2.next()) {
+                if(resultado2.getString("ativo").equals("S"))
+                    listaDepto.add(resultado2.getString("nome"));
+            }
         }
-
         depto.setItems(listaDepto);
     }
 
@@ -155,11 +158,13 @@ public class CriarTurmasController implements Initializable {
         listaCurso.clear();
         ResultSet resultado = selecionarRegistros("deptos", "nome", valor);
         resultado.next();
-        ResultSet resultado2 = selecionarRegistros("cursos", "idDepto", resultado.getString("id"));
-        while (resultado2.next()) {
-            listaCurso.add(resultado2.getString("nome"));
+        if(resultado.getString("ativo").equals("S")){
+            ResultSet resultado2 = selecionarRegistros("cursos", "idDepto", resultado.getString("id"));
+            while (resultado2.next()) {
+                if(resultado2.getString("ativo").equals("S"))
+                listaCurso.add(resultado2.getString("nome"));
+            }
         }
-
         curso.setItems(listaCurso);
     }
 

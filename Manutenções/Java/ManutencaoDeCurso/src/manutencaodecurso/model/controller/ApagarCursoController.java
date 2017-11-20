@@ -69,8 +69,9 @@ public class ApagarCursoController implements Initializable {
         try {
             ResultSet resultado = selecionarRegistros("campi");
             while (resultado.next()) {
-                listaCampi.add(resultado.getString("nome"));
-            }
+                if(resultado.getString("ativo").equals("S"))
+                    listaCampi.add(resultado.getString("nome"));
+            }   
         } catch (SQLException ex) {
             Logger.getLogger(AlterarCursoController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -136,27 +137,34 @@ public class ApagarCursoController implements Initializable {
     public void atualizaListaDepto(String valor) throws SQLException {
         listaDepto.clear();
         listaCurso.clear();
+        
         ResultSet resultado = selecionarRegistros("campi", "nome", valor);
         resultado.next();
-        ResultSet resultado2 = selecionarRegistros("deptos", "idCampi", resultado.getString("id"));
-        while (resultado2.next()) {
-            listaDepto.add(resultado2.getString("nome"));
-        }
+        if(resultado.getString("ativo").equals("S")){
+            ResultSet resultado2 = selecionarRegistros("deptos", "idCampi", resultado.getString("id"));
 
+            while (resultado2.next()) {
+                if(resultado2.getString("ativo").equals("S"))
+                    listaDepto.add(resultado2.getString("nome"));
+            }
+        }
         depto.setItems(listaDepto);
     }
 
     @FXML
     public void atualizaListaCurso(String valor) throws SQLException {
-
         listaCurso.clear();
+        
         ResultSet resultado = selecionarRegistros("deptos", "nome", valor);
         resultado.next();
-        ResultSet resultado2 = selecionarRegistros("cursos", "idDepto", resultado.getString("id"));
-        while (resultado2.next()) {
-            listaCurso.add(resultado2.getString("nome"));
-        }
+        if(resultado.getString("ativo").equals("S")){
+            ResultSet resultado2 = selecionarRegistros("cursos", "idDepto", resultado.getString("id"));
 
+            while (resultado2.next()) {
+                if(resultado2.getString("ativo").equals("S"))
+                    listaCurso.add(resultado2.getString("nome"));
+            }
+        }
         curso.setItems(listaCurso);
     }
   

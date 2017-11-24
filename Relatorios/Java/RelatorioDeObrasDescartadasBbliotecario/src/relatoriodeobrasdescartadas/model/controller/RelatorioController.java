@@ -86,8 +86,9 @@ public class RelatorioController implements Initializable {
         
         
         do {
+            ResultSet resultadoFuncionario = selecionarRegistros("funcionario", "idSIAPE", resultadoDescartes.getString("idFuncionario"));
             resultadoAcervo = selecionarRegistros("acervo", "id", resultadoDescartes.getString("idAcervo"));
-            lista.add(new ObrasDescartadas(resultadoAcervo.getString("nome"), resultadoDescartes.getString("idFuncionario"),
+            lista.add(new ObrasDescartadas(resultadoAcervo.getString("nome"), resultadoFuncionario.getString("nome"),
                     resultadoDescartes.getString("dataDescarte"), resultadoDescartes.getString("motivos")));
         } while (resultadoDescartes.next());
 

@@ -1,95 +1,154 @@
 <!--
 Grupo: MAE
-  Data de modificação: 20/11/2017
+  Data de modificaï¿½ï¿½o: 20/11/2017
   Autor: Emanuela Amorim
-    Objetivo da modificação: fazer filtragem
+    Objetivo da modificaï¿½ï¿½o: fazer filtragem
 -->
 <?php
+//EU NAO SOUBE ARRUMAR O ERRO DOS ACENTOS!!
+header ('Content-type: text/html; charset=ISO-8859-1');
 
 //Inclui a biblioteca do MPDF
 include("mpdf60/mpdf.php");
 
-// Cria conexão
+// Cria conexï¿½o
 $conn = new mysqli("localhost", "root", "","educatio");
-// Checa conexão
+// Checa conexï¿½o
 if ($conn->connect_error) {
-    die("Conecção falhou: " . $conn->connect_error);
+    die("Conecï¿½ï¿½o falhou: " . $conn->connect_error);
 }
 
-//recebe via POST o Id do aluno a ser pesquisado,se não tiver nada no input ele manda o pdf com os dados
+//recebe via POST o Id do aluno a ser pesquisado,se nï¿½o tiver nada no input ele manda o pdf com os dados
 if (!empty($_POST["nomeAlunoPesquisa"])) {
-  $nomeAlunoPesquisa=$_POST["nomeAlunoPesquisa"];
 
-  $stmt = $conn->prepare("SELECT * FROM alunos WHERE nome = ?");
+  $nomeAlunoPesquisa = $_POST["nomeAlunoPesquisa"];
+
+  $stmt = $conn->prepare("SELECT nome, idCPF FROM alunos WHERE nome = ?");
   $stmt->bind_param('s',$nomeAlunoPesquisa);
   $stmt->execute();
-  $rst = $stmt->get_result(); 
+  $rst = $stmt->get_result();
 
   while($row  = $rst->fetch_assoc()){
     $idAluno = $row['idCPF'];
-    $nomeAluno = $row['nome'];
-    //echo $nomeAluno. " - " .$idAluno;
+	  $nomeAluno = $row['nome'];
   }
 
-  $stmt = $conn->prepare("SELECT * FROM  emprestimos WHERE idaluno = ?");
+  $stmt = $conn->prepare("SELECT dataPrevisaoDevolucao, dataDevolucao FROM  emprestimos WHERE idAluno = ?");
   $stmt->bind_param('s', $idAluno);
   $stmt->execute();
   $rst = $stmt->get_result();
 
   while($row = $rst->fetch_assoc()){
     $dataPrevisaoDevolucao = $row['dataPrevisaoDevolucao'];
-    $dataDevolucao = $row['dataDevolucao'];
-    //echo "<br>".$dataPrevisaoDevolucao. " - " .$dataDevolucao;
+    $dataDevolucao[] = $row['dataDevolucao'];
   }
 
-//itesct5.0.2
+  $html = "<!DOCTYPE html>
+          <html lang='pt-br'>
+            <head>
+            </head>
+              <body>
+                <h3> Relatorio de Atrasos <h3>
+                 <table>
+                      <tr>
+                        <th>Nome do aluno &emsp;</th>
+                        <th>Id do aluno &emsp;</th>
+                        <th>Data prevista para devolucao &emsp;</th>
+                        <th>Data de devolucao &emsp;</th>
+                      </tr>";
+
+foreach ($dataDevolucao as $devolucao) {
+
+                        $html .= " <tr>
+                                      <td>".$nomeAluno."</td>
+                                      <td>".$idAluno."</td>
+                                      <td>".$dataPrevisaoDevolucao."</td>
+                                      <td>".$devolucao."</td>
+                                   </tr>
+                                 ";
+                          }
+
+$html.= "         </table>
+            </body>
+        </html>";
+
 
 }
 else {
   //Seleciona da tabela emprestimos os dados
-  $sql = "SELECT * FROM emprestimos ORDER BY idAluno ASC";
-  $result = $conn->query($sql);
-}
+  $sql = "SELECT idAluno, dataPrevisaoDevolucao, dataDevolucao FROM emprestimos ORDER BY idAluno";
+  $rst = $conn->query($sql);
 
-  $stmt = $conn->prepare("SELECT * FROM  emprestimos WHERE idaluno = ?");
-  $stmt->bind_param('s', $idAluno);
-  $stmt->execute();
-  $rst = $stmt->get_result();
+  $numRegistrosEmprestimos = mysqli_num_rows($rst);
 
-$html = "
-                    <table class='table'>
-                      <caption><center><strong> TABELA DE ATRASOS </strong></center></caption>
+  while($row = $rst->fetch_assoc()){
+	$dataDevolucao[] = $row['dataDevolucao'];
+	$dataPrevisaoDevolucao[] = $row['dataPrevisaoDevolucao'];
+	$idAluno[] = $row['idAluno'];
+  }
+
+  $stmt1 = "SELECT nome, idCPF FROM  alunos";
+  $rst1 = $conn->query($stmt1);
+
+  $numRegistrosAlunos = mysqli_num_rows($rst1);
+
+  while($row1 = $rst1->fetch_assoc()){
+    $nomeAluno[] = $row1['nome'];
+    $idAlunoAlunos[] = $row1['idCPF'];
+  }
+
+ $k = 0;
+
+  for ($i=0; $i < $numRegistrosAlunos ; $i++) {
+  	for ($j=0; $j < $numRegistrosEmprestimos ; $j++) {
+  		if ($idAluno[$j] == $idAlunoAlunos[$i]) {
+  			$nomeAlunoFinal[$k] = $nomeAluno[$i];
+  			$k ++;
+  		}
+  	}
+  }
+
+  $html = "<!DOCTYPE html>
+          <html lang='pt-br'>
+            <head>
+            </head>
+              <body>
+                <h3> Relatorio de Atrasos <h3>
+                 <table>
                       <tr>
+            <th>Nome do aluno &emsp;</th>
                        <th>Id do aluno &emsp;</th>
                        <th>Data prevista para devolucao &emsp;</th>
                        <th>Data de devolucao &emsp;</th>
                       </tr>";
 
-while($row = $rst->fetch_assoc()) {
-
-                            //echo dos valores do id do Aluno e datas
-                        $html .= " <tr>
-                                    <td>".$row['idAluno']."</td>
-                                    <td>".$row["dataPrevisaoDevolucao"]."</td>
-                                    <td>".$row["dataDevolucao"]."</td>
-                                   </tr>
+      for ($i = 0; $i  < $numRegistrosEmprestimos; $i ++) {
+        $html .= "<tr>
+                    <td>".$nomeAlunoFinal[$i]."</td>
+                    <td>".$idAluno[$i]."</td>
+                    <td>".$dataPrevisaoDevolucao[$i]."</td>
+                    <td>".$dataDevolucao[$i]."</td>
+                  </tr>
                                  ";
                           }
-                           
-$html.= "         </table>
-                </div>
+
+$html.="         </table>
             </body>
         </html>";
+}
 
+//cria a Data da geraï¿½ï¿½o do arquivo
+$dataAtual = date("d-m-y");
 //cria nome do arquivo de acordo com a data atual
 $nomeDoArquivo = "Relatorio de atrasos(" .$dataAtual. ").pdf"; 
- //cria a Data da geração do arquivo
-$dataAtual = date("d-m-y");
 
- $mpdf = new mPDF();
- $mpdf -> SetTitle($nomeDoArquivo);
- $mpdf -> SetDisplayMode('fullpage');
- $mpdf -> WriteHTML($html);
- $mpdf -> Output($nomeDoArquivo, 'D');
+$mpdf = new mPDF();
+$stylesheet = file_get_contents('tabelaPDF.css'); // css da tabela
+$mpdf->WriteHTML($stylesheet,1);
 
+$mpdf -> SetTitle($nomeDoArquivo);
+$mpdf -> SetDisplayMode('fullpage');
+$mpdf -> WriteHTML($html);
+
+$mpdf -> Output($nomeDoArquivo, 'D');
 ?>

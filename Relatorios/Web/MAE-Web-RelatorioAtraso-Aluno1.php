@@ -1,8 +1,8 @@
 <!--
 Grupo: MAE
-	Data de modificação: 20/11/2017
+	Data de modificaï¿½ï¿½o: 20/11/2017
 	Autor: Emanuela Amorim
-    Objetivo da modificação: fazer filtragem
+    Objetivo da modificaï¿½ï¿½o: fazer filtragem
 -->
 
 <!DOCTYPE html>
@@ -24,10 +24,10 @@ Grupo: MAE
     <!-- Fontes e icones -->
     <link href="https://fonts.googleapis.com/css?family=Abel|Inconsolata" rel="stylesheet">
     <link href="css/nucleo-icons.css" rel="stylesheet">
-	
+
 	<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1" />
 
-    <!-- Deve estar em CSS externo, mas como é apenas um exemplo declaramos aqui -->
+    <!-- Deve estar em CSS externo, mas como ï¿½ apenas um exemplo declaramos aqui -->
 
     <style type="text/css">
         .text-center{
@@ -53,15 +53,15 @@ Grupo: MAE
     </style>
   </head>
   <body>
-  
+
 	<div class="wrapper">
             <div class="section landing-sectionv">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 ml-auto mr-auto">
-                        
+
                             <h2 class="text-center">Relatorio de atrasos</h2>
-                            
+
                             <form class="contact-form" action="MAE-Web-RelatorioAtraso-Aluno2.php" method="POST">
                                 <div class="row">
                 									<label class="fonteTexto">Nome aluno:</label>
@@ -69,17 +69,17 @@ Grupo: MAE
                 										<span class="input-group-addon">
                 											<i class="nc-icon nc-circle-10"></i>
                 										</span>
-                										<input type="text" class="form-control" placeholder="ID aluno" name="nomeAlunoPesquisa" required="required">
-                									</div>									
+                										<input type="text" class="form-control" placeholder="Confirme seu nome" name="nomeAlunoPesquisa" required="required">
+                									</div>
                 									<div class="col-md-4 ml-auto mr-auto">
                 										<button type="submit" class="btn btn-info btn-round">Download</button>
                 									</div>
-                                </div>       
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>	
+        </div>
   </body>
 </html>

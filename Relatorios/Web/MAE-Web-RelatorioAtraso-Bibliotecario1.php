@@ -1,8 +1,8 @@
 <!--
 Grupo: MAE
-  Data de modificação: 20/11/2017
+  Data de modificaï¿½ï¿½o: 20/11/2017
   Autor: Emanuela Amorim
-    Objetivo da modificação: fazer filtragem
+    Objetivo da modificaï¿½ï¿½o: fazer filtragem
 -->
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -24,7 +24,7 @@ Grupo: MAE
     <link href="https://fonts.googleapis.com/css?family=Abel|Inconsolata" rel="stylesheet">
     <link href="css/nucleo-icons.css" rel="stylesheet">
 
-    <!-- Deve estar em CSS externo, mas como é apenas um exemplo declaramos aqui -->
+    <!-- Deve estar em CSS externo, mas como ï¿½ apenas um exemplo declaramos aqui -->
 
     <style type="text/css">
         .text-center{
@@ -50,29 +50,29 @@ Grupo: MAE
     </style>
   </head>
   <body>
-  
+
 	<div class="wrapper">
             <div class="section landing-sectionv">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 ml-auto mr-auto">
-                        
+
                             <h2 class="text-center">Relatorio de atrasos</h2>
-                            
+
                             <form class="contact-form" action="MAE-Web-RelatorioAtraso-Bibliotecario2.php" method="POST">
                                 <div class="row">
-              									<label class="fonteTexto">Pesquise pelo nome do aluno:</label>
+              									<label class="fonteTexto">Nome do aluno:</label>
               									<div class="input-group">
               										<span class="input-group-addon">
               											<i class="nc-icon nc-circle-10"></i>
               										</span>
-              										<input type="text" class="form-control" placeholder="Nome do aluno" name="nomeAlunoPesquisa">
+              										<input type="text" class="form-control" placeholder="Insira o nome, caso desejado algum em especifico" name="nomeAlunoPesquisa">
                 									</div>
 
                 									<div class="col-md-4 ml-auto mr-auto">
                 										<button type="submit" class="btn btn-info btn-round">Download</button>
                 									</div>
-                                </div>       
+                                </div>
                             </form>
                         </div>
                     </div>
